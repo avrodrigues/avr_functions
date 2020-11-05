@@ -5,6 +5,9 @@
 #' @param species a character string with the name for the species column
 #' @param latitude a character string with the name for the latitude column
 #' @param longitude a character string with the name for the longitude column
+#' @param plot logical. Default = TRUE
+#' @param raster logical. Should the function return a raster object?
+#' 
 #'
 #' @export
 map_rich_occ <- function(x,
@@ -14,7 +17,9 @@ map_rich_occ <- function(x,
                          longitude = "longitude",
                          color.palette = c("white","red"),
                          xlim = NULL,
-                         ylim = NULL
+                         ylim = NULL,
+                         plot = TRUE,
+                         raster = FALSE
                          ){
 
 
@@ -53,9 +58,16 @@ map_rich_occ <- function(x,
   pal <- grDevices::colorRampPalette(color.palette) # Paleta de cores do raster
 
   # gerando mapa
-  plot(richness_raster,
-       xlim = lims[1:2]+c(-1,1),
-       ylim = lims[3:4]+c(-1,1), # limites longitude/latitude
-       col = pal(50))
-  plot(countries, add = T)
+  if(plot == TRUE){
+    plot(richness_raster,
+         xlim = lims[1:2]+c(-1,1),
+         ylim = lims[3:4]+c(-1,1), # limites longitude/latitude
+         col = pal(50))
+    plot(countries, add = T)
+  }
+  
+  if(raster == TRUE){
+    return(richness_raster)
+  }
+
 }

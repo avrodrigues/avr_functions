@@ -23,7 +23,7 @@ map_rich_occ <- function(x,
                          ){
 
 
-
+  
   # crie um raster
   r <- raster::raster(resolution = resolution, # 1 grau decimal
               ext = extent(c(-180,180,-90,90)))
@@ -67,7 +67,8 @@ map_rich_occ <- function(x,
   }
   
   if(raster == TRUE){
-    return(richness_raster)
+    r_rich <- crop(richness_raster, lims)
+    return(r_rich)
   }
 
 }
